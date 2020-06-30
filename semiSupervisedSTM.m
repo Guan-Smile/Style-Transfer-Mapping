@@ -18,9 +18,9 @@ T_B_QDF = zeros(nb_B, m);    % target of unlabeled data defined by QDF
 f_A = ones(nb_A, 1);         % confidence of labeled data, initialzed as 1 (will soon be replaced by a)
 f_B_LVQ = zeros(nb_B, 1);    % confidence of unlabeled data in LVQ target defination
 f_B_QDF = zeros(nb_B, 1);    % confidence of unlabeled data in QDF target defination
-[id_pos,~] = find(train_y(:)==1);
+[id_pos,~] = find(train_y(:)==3);
 [id_neu,~] = find(train_y(:)==2);
-[id_neg,~] = find(train_y(:)==3);
+[id_neg,~] = find(train_y(:)==1);
 pos = train_x(id_pos,:);
 neu = train_x(id_neu,:);
 neg = train_x(id_neg,:);
@@ -42,13 +42,13 @@ segma3 = cov(neg);
 for i = 1:1:nb_A
     x = S_A(i,:);
     switch L_A(i)
-        case 1
+        case 3
             T_A_LVQ(i,:) = findTargetLVQ(x, m1);
             T_A_QDF(i,:) = findTargetQDF(x, u1, segma1);
         case 2
             T_A_LVQ(i,:) = findTargetLVQ(x, m2);
             T_A_QDF(i,:) = findTargetQDF(x, u2, segma2);
-        case 3
+        case 1
             T_A_LVQ(i,:) = findTargetLVQ(x, m3);
             T_A_QDF(i,:) = findTargetQDF(x, u3, segma3);
     end
@@ -90,13 +90,13 @@ for i = 1:1:nb_A
     x_LVQ = S_A_LVQ(i,:);
     x_QDF = S_A_QDF(i,:);
     switch L_A(i)
-        case 1
+        case 3
             T_A_LVQ(i,:) = findTargetLVQ(x_LVQ, m1);
             T_A_QDF(i,:) = findTargetQDF(x_QDF, u1, segma1);
         case 2
             T_A_LVQ(i,:) = findTargetLVQ(x_LVQ, m2);
             T_A_QDF(i,:) = findTargetQDF(x_QDF, u2, segma2);
-        case 3
+        case 1
             T_A_LVQ(i,:) = findTargetLVQ(x_LVQ, m3);
             T_A_QDF(i,:) = findTargetQDF(x_QDF, u3, segma3);
     end
@@ -117,19 +117,19 @@ for iter = 1:1:iterNum
         [y_arrow_LVQ, ~, decision_value_LVQ] = svmpredict(1, x_mapped_LVQ, svm);    % y_arrow is the predicted label for x, the para '1' is nonsense
         [y_arrow_QDF, ~, decision_value_QDF] = svmpredict(1, x_mapped_QDF, svm);
         switch y_arrow_LVQ
-            case 1
+            case 3
                 T_B_LVQ(i,:) = findTargetLVQ(x_LVQ, m1);
             case 2
                 T_B_LVQ(i,:) = findTargetLVQ(x_LVQ, m2);
-            case 3
+            case 1
                 T_B_LVQ(i,:) = findTargetLVQ(x_LVQ, m3);
         end
         switch y_arrow_QDF
-            case 1
+            case 3
                 T_B_QDF(i,:) = findTargetQDF(x_QDF, u1, segma1);
             case 2
                 T_B_QDF(i,:) = findTargetQDF(x_QDF, u2, segma2);
-            case 3
+            case 1
                 T_B_QDF(i,:) = findTargetQDF(x_QDF, u3, segma3);
         end
         % (1) the original confidence setup
