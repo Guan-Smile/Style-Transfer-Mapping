@@ -1,4 +1,4 @@
-function [S_transfered_LVQ, L_B_predicted_LVQ, L_B_predicted_QDF] = semiSupervisedSTM(train_x, train_y, S_A, L_A, S_B, L_B, a, beta_coeff, gamma_coeff, iterNum)
+function [S_transfered_LVQ,S_transfered_QDF, L_B_predicted_LVQ, L_B_predicted_QDF] = semiSupervisedSTM(train_x, train_y, S_A, L_A, S_B, L_B, a, beta_coeff, gamma_coeff, iterNum)
 % implement STM in semi-supervised way
 % train_x & train_y: used to find prototypes and train subject-free classifiers
 % S_A: labeled data in S

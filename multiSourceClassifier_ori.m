@@ -1,11 +1,11 @@
-function [acc, acc_transfered_LVQ, acc_transfered_QDF] = multiSourceClassifier_guan(subjectIndex, nb_senator)
+function [acc, acc_transfered_LVQ, acc_transfered_QDF] = multiSourceClassifier_ori(subjectIndex, nb_senator)
 % this function conducts classifier adaptation based on the selected 3394 samples from one best subject
 %% --load and preprocess data-- %%
-kl=load( 'L.mat');
+kl=load( 'L.mat');%标签
 %高兴3平静2悲伤1
-% load( 'L_nozscore.mat');
-load('data2.mat');
-data = Source_Data_A;
+% load( 'L_nozscore.mat');%data第一组session没做zscore
+load('data2.mat');%data第二组session没做zscore
+% data = Source_Data_A;
 % label = zeros(3394,1);
 % for i = 1:1:3394       % L from vector to integer
 %     if L(i,:) == [1 0 0]
@@ -44,7 +44,7 @@ S_B = S(675:3394,:); % the last 12 stimulus
 L_B = label(675:3394,:);
 
 randIndex = randperm(2720);
-S_B = S_B(randIndex,:);      
+S_B = S_B(randIndex,:);
 L_B = L_B(randIndex,:);
 
 SVMs(subjectIndex) = []; % delete the subject's own SVM among the 14 SVMs
